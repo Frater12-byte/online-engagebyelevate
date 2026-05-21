@@ -1,29 +1,119 @@
 [
   {
-    "id": "opening-keynote",
-    "title": "Opening Keynote — Reimagining Hosted Buyer Events",
-    "description": "Welcome address and a look at how the hosted buyer model is evolving for Middle East inbound tourism.",
-    "startsAt": "2026-06-02T10:00:00+04:00",
-    "endsAt": "2026-06-02T10:45:00+04:00",
-    "speakers": ["Francesca Doe — Elevate World", "Guest Speaker TBC"],
+    "id": "opening-session-day-1",
+    "title": "Opening Session",
+    "description": "Welcome and opening of Engage by Elevate 2026 at the Elevate Tourism Hub.",
+    "startsAt": "2026-06-02T11:00:00+04:00",
+    "endsAt": "2026-06-02T11:40:00+04:00",
+    "speakers": ["Engage by Elevate"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "panel-luxury-uae",
-    "title": "Panel · Luxury Hospitality in the UAE",
-    "description": "Leaders from UAE luxury hotels discuss the 2026 outlook, group travel demand and source-market shifts.",
-    "startsAt": "2026-06-02T14:00:00+04:00",
-    "endsAt": "2026-06-02T15:00:00+04:00",
-    "speakers": ["Hotel GM Panel"],
+    "id": "wynn-al-marjan-island-presentation",
+    "title": "Wynn Al Marjan Island Presentation",
+    "description": "Sponsorship session: Wynn Al Marjan Island presents to tour operators.",
+    "startsAt": "2026-06-02T13:20:00+04:00",
+    "endsAt": "2026-06-02T14:00:00+04:00",
+    "speakers": ["Wynn Al Marjan Island"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "fireside-thailand",
-    "title": "Fireside · Thailand Inbound 2026",
-    "description": "Live conversation with leading Thai resort partners on the opportunity for GCC outbound buyers.",
+    "id": "panel-session-hotels-day-1",
+    "title": "Panel Session",
+    "description": "Panel session for hotels.",
+    "startsAt": "2026-06-02T15:20:00+04:00",
+    "endsAt": "2026-06-02T16:20:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "session-hotels-day-1",
+    "title": "Hotel Session",
+    "description": "Session for hotels.",
+    "startsAt": "2026-06-02T16:40:00+04:00",
+    "endsAt": "2026-06-02T17:00:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "session-hotels-day-2-morning",
+    "title": "Hotel Session",
+    "description": "Session for hotels.",
+    "startsAt": "2026-06-03T11:30:00+04:00",
+    "endsAt": "2026-06-03T11:50:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "tourism-board-presentation-day-2-am",
+    "title": "Tourism Board Presentation",
+    "description": "Sponsorship session: Tourism Board presents to tour operators.",
+    "startsAt": "2026-06-03T13:20:00+04:00",
+    "endsAt": "2026-06-03T14:00:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "tourism-board-presentation-day-2-pm",
+    "title": "Tourism Board Presentation",
+    "description": "Sponsorship session: Tourism Board presents to tour operators.",
+    "startsAt": "2026-06-03T15:20:00+04:00",
+    "endsAt": "2026-06-03T15:40:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "closing-session-day-2",
+    "title": "Closing Session + Networking Event",
+    "description": "Closing session followed by the networking event at the Elevate Tourism Hub.",
+    "startsAt": "2026-06-03T19:00:00+04:00",
+    "endsAt": "2026-06-03T20:00:00+04:00",
+    "speakers": ["Engage by Elevate"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "opening-session-day-3",
+    "title": "Opening Session — International Day",
+    "description": "Opening session for the international day.",
     "startsAt": "2026-06-04T11:00:00+04:00",
-    "endsAt": "2026-06-04T11:45:00+04:00",
-    "speakers": ["Thailand Hotel Partners"],
+    "endsAt": "2026-06-04T11:40:00+04:00",
+    "speakers": ["Engage by Elevate"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "thailand-session",
+    "title": "Thailand Session",
+    "description": "Thailand session for hotels.",
+    "startsAt": "2026-06-04T13:20:00+04:00",
+    "endsAt": "2026-06-04T14:00:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "maldives-session",
+    "title": "Maldives Session",
+    "description": "Maldives session for hotels.",
+    "startsAt": "2026-06-04T15:20:00+04:00",
+    "endsAt": "2026-06-04T16:20:00+04:00",
+    "speakers": [],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "visit-qatar-presentation",
+    "title": "Tourism Board Presentation — Visit Qatar",
+    "description": "Visit Qatar presents to tour operators.",
+    "startsAt": "2026-06-04T16:40:00+04:00",
+    "endsAt": "2026-06-04T17:00:00+04:00",
+    "speakers": ["Visit Qatar"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "closing-session-day-3",
+    "title": "Closing Session",
+    "description": "Final closing session of Engage by Elevate 2026.",
+    "startsAt": "2026-06-04T19:00:00+04:00",
+    "endsAt": "2026-06-04T19:30:00+04:00",
+    "speakers": ["Engage by Elevate"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   }
 ]

@@ -1,41 +1,70 @@
 /* ============================================================
-   Engage Online — engagebyelevate.com design system
-   Bg #080808 · Accent #EC672C
-   Display: Barlow Condensed · Headlines: Barlow · Body: Manrope
+   Engage Online — design system aligned with engagebyelevate.com
+   Bg #08080a · Orange #E8612A · Type: Noto Sans (display + body)
    ============================================================ */
 
 :root {
-  --bg: #080808;
-  --bg-2: #0f0f0f;
-  --bg-3: #161616;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-2: rgba(255, 255, 255, 0.14);
-  --text: #f5f3ef;
-  --text-2: #b5b1a9;
-  --text-3: #6f6c66;
-  --accent: #EC672C;
-  --accent-2: #f08648;
-  --accent-soft: rgba(236, 103, 44, 0.12);
-  --danger: #e34a4a;
-  --ok: #4ade80;
-  --radius: 4px;
-  --radius-lg: 8px;
+  --black: #000000;
+  --bg: #08080a;
+  --bg-card: #121215;
+  --bg-elevated: #1a1a1f;
+  --bg-surface: #0f0f12;
+  --white: #FFFFFF;
+  --ink: #FFFFFF;
+  --ink-soft: #a0a0a8;
+  --ink-muted: #5a5a65;
+  --orange: #E8612A;
+  --orange-hover: #d4551f;
+  --orange-light: #FF7A3D;
+  --orange-dim: rgba(232, 97, 42, 0.08);
+  --orange-glow: rgba(232, 97, 42, 0.20);
+  --success: #00d26a;
+  --danger: #ff3b3b;
+  --line: rgba(255, 255, 255, 0.06);
+  --line-strong: rgba(255, 255, 255, 0.12);
+
+  --font-display: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --radius: 6px;
+  --radius-sm: 4px;
+  --radius-xs: 2px;
+  --radius-full: 9999px;
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lift: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-orange: 0 6px 28px rgba(232, 97, 42, 0.25);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
+html {
   background: var(--bg);
-  color: var(--text);
-  font-family: 'Manrope', system-ui, sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
 
-a { color: var(--text); text-decoration: none; }
-a:hover { color: var(--accent); }
+a { color: var(--ink); text-decoration: none; }
+a:hover { color: var(--orange); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.05;
+}
 
 .bg-grain {
   position: fixed; inset: 0;
@@ -47,53 +76,52 @@ a:hover { color: var(--accent); }
 }
 
 .brand {
-  display: inline-flex; align-items: baseline; gap: 8px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
 }
-.brand-mark { color: var(--accent); font-size: 18px; }
-.brand-word { font-size: 22px; color: var(--text); }
-.brand-sub { font-size: 11px; color: var(--text-3); letter-spacing: 0.18em; }
+.brand img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.topbar .brand img { height: 32px; }
 
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
   gap: 10px;
-  background: var(--accent);
-  color: #0a0a0a;
+  background: var(--orange);
+  color: var(--white);
   border: none;
   padding: 16px 24px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  letter-spacing: 0.02em;
   cursor: pointer;
   border-radius: var(--radius);
   width: 100%;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: var(--shadow-orange);
 }
-.btn-primary:hover { background: var(--accent-2); }
+.btn-primary:hover { background: var(--orange-hover); }
 .btn-primary:active { transform: translateY(1px); }
 .btn-primary svg { width: 18px; height: 18px; }
-.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
 .btn-ghost {
   background: transparent;
-  color: var(--text-2);
-  border: 1px solid var(--line-2);
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
   padding: 8px 16px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 13px;
   cursor: pointer;
   border-radius: var(--radius);
   transition: all 0.2s;
 }
-.btn-ghost:hover { color: var(--text); border-color: var(--text); }
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
 
 .gate-body { overflow-x: hidden; }
 
@@ -111,8 +139,8 @@ a:hover { color: var(--accent); }
   flex-direction: column;
   justify-content: space-between;
   background:
-    radial-gradient(ellipse at top left, rgba(236, 103, 44, 0.08), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, #0a0a0a 100%);
+    radial-gradient(ellipse at top left, var(--orange-dim), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-surface) 100%);
   border-right: 1px solid var(--line);
   position: relative;
 }
@@ -122,17 +150,17 @@ a:hover { color: var(--accent); }
   position: absolute;
   top: 0; right: -1px; bottom: 0;
   width: 1px;
-  background: linear-gradient(180deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  background: linear-gradient(180deg, transparent, var(--orange) 30%, var(--orange) 70%, transparent);
   opacity: 0.4;
 }
 
 .gate-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--accent);
+  letter-spacing: 3px;
+  color: var(--orange);
   margin-top: 80px;
   margin-bottom: 24px;
   display: flex;
@@ -142,9 +170,9 @@ a:hover { color: var(--accent); }
 .gate-eyebrow::before {
   content: '';
   width: 8px; height: 8px;
-  background: var(--accent);
+  background: var(--orange);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--accent);
+  box-shadow: 0 0 12px var(--orange);
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
@@ -153,19 +181,20 @@ a:hover { color: var(--accent); }
 }
 
 .gate-title {
-  font-family: 'Barlow', sans-serif;
-  font-weight: 800;
-  font-size: clamp(48px, 6vw, 88px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin-bottom: 32px;
+  color: var(--ink);
 }
-.accent { color: var(--accent); }
+.accent { color: var(--orange); }
 
 .gate-lede {
-  color: var(--text-2);
-  font-size: 17px;
-  line-height: 1.6;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.65;
   max-width: 480px;
   margin-bottom: 48px;
 }
@@ -179,19 +208,20 @@ a:hover { color: var(--accent); }
   border-top: 1px solid var(--line);
 }
 .gate-meta li {
-  font-family: 'Manrope', sans-serif;
-  font-size: 12px;
-  color: var(--text-3);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ink-muted);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 2px;
+  font-weight: 500;
 }
 .gate-meta li span {
   display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  letter-spacing: 0.05em;
-  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
   margin-bottom: 4px;
   text-transform: none;
 }
@@ -210,59 +240,56 @@ a:hover { color: var(--accent); }
 }
 
 .gate-form-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--text-3);
+  letter-spacing: 3px;
+  color: var(--ink-muted);
   margin-bottom: 12px;
 }
 
 .gate-form-title {
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin-bottom: 32px;
 }
 
-.field {
-  display: block;
-  margin-bottom: 20px;
-}
+.field { display: block; margin-bottom: 20px; }
 .field-label {
   display: block;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--text-3);
+  letter-spacing: 1.5px;
+  color: var(--ink-soft);
   margin-bottom: 8px;
 }
 .field-opt {
-  color: var(--text-3);
+  color: var(--ink-muted);
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: lowercase;
 }
 .field input {
   width: 100%;
-  background: var(--bg-2);
+  background: var(--bg-card);
   border: 1px solid var(--line);
-  color: var(--text);
+  color: var(--ink);
   padding: 14px 16px;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   border-radius: var(--radius);
   transition: border-color 0.2s, background 0.2s;
 }
 .field input:focus {
   outline: none;
-  border-color: var(--accent);
-  background: var(--bg-3);
+  border-color: var(--orange);
+  background: var(--bg-elevated);
 }
 .field input:invalid:not(:placeholder-shown) {
   border-color: var(--danger);
@@ -271,8 +298,8 @@ a:hover { color: var(--accent); }
 .gate-fineprint {
   margin-top: 20px;
   font-size: 12px;
-  color: var(--text-3);
-  line-height: 1.5;
+  color: var(--ink-muted);
+  line-height: 1.55;
 }
 
 .topbar {
@@ -283,16 +310,15 @@ a:hover { color: var(--accent); }
   border-bottom: 1px solid var(--line);
   position: relative;
   z-index: 2;
-  background: rgba(8, 8, 8, 0.95);
+  background: rgba(8, 8, 10, 0.95);
   backdrop-filter: blur(8px);
 }
 .topbar-right { display: flex; align-items: center; gap: 16px; }
 .viewer-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-2);
+  font-weight: 600;
+  color: var(--ink-soft);
 }
 
 .programme {
@@ -303,33 +329,30 @@ a:hover { color: var(--accent); }
   z-index: 2;
 }
 
-.programme-hero {
-  margin-bottom: 56px;
-  max-width: 880px;
-}
+.programme-hero { margin-bottom: 56px; max-width: 880px; }
 
 .programme-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--accent);
+  letter-spacing: 3px;
+  color: var(--orange);
   margin-bottom: 20px;
 }
 
 .programme-title {
-  font-family: 'Barlow', sans-serif;
-  font-weight: 800;
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin-bottom: 20px;
 }
 
 .programme-lede {
-  color: var(--text-2);
-  font-size: 17px;
+  color: var(--ink-soft);
+  font-size: 16px;
   max-width: 560px;
   margin-bottom: 40px;
 }
@@ -345,22 +368,20 @@ a:hover { color: var(--accent); }
 .day-tab {
   background: transparent;
   border: 1px solid var(--line);
-  color: var(--text-2);
+  color: var(--ink-soft);
   padding: 10px 18px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   cursor: pointer;
   border-radius: var(--radius);
   transition: all 0.2s;
 }
-.day-tab:hover { color: var(--text); border-color: var(--text); }
+.day-tab:hover { color: var(--ink); border-color: var(--ink); }
 .day-tab.is-active {
-  background: var(--accent);
-  color: #0a0a0a;
-  border-color: var(--accent);
+  background: var(--orange);
+  color: var(--white);
+  border-color: var(--orange);
 }
 
 .meetings-grid {
@@ -370,27 +391,28 @@ a:hover { color: var(--accent); }
 }
 
 .meeting-card {
-  background: var(--bg-2);
+  background: var(--bg-card);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   position: relative;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
 }
 .meeting-card:hover {
-  border-color: var(--line-2);
+  border-color: var(--line-strong);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
 }
 .meeting-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--orange);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s;
@@ -398,8 +420,9 @@ a:hover { color: var(--accent); }
 .meeting-card:hover::before { transform: scaleX(1); }
 
 .meeting-card.is-live {
-  border-color: var(--accent);
-  background: linear-gradient(180deg, rgba(236, 103, 44, 0.06), var(--bg-2));
+  border-color: var(--orange);
+  background: linear-gradient(180deg, var(--orange-dim), var(--bg-card));
+  box-shadow: var(--shadow-orange);
 }
 .meeting-card.is-live::before { transform: scaleX(1); }
 
@@ -407,75 +430,77 @@ a:hover { color: var(--accent); }
   display: flex;
   align-items: baseline;
   gap: 12px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
 }
 .meeting-day {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--text-3);
+  letter-spacing: 2px;
+  color: var(--ink-muted);
 }
 .meeting-hour {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
 }
 .meeting-tz {
   font-size: 11px;
-  color: var(--text-3);
+  color: var(--ink-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .meeting-status {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 2px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   margin-left: auto;
 }
 .meeting-status.live {
-  background: var(--accent);
-  color: #0a0a0a;
+  background: var(--orange);
+  color: var(--white);
 }
 .meeting-status.live::before {
   content: '';
   width: 6px; height: 6px;
-  background: #0a0a0a;
+  background: var(--white);
   border-radius: 50%;
   animation: pulse 1.4s ease-in-out infinite;
 }
 .meeting-status.upcoming {
   background: rgba(255, 255, 255, 0.06);
-  color: var(--text-2);
+  color: var(--ink-soft);
   border: 1px solid var(--line);
 }
 .meeting-status.ended {
   background: transparent;
-  color: var(--text-3);
+  color: var(--ink-muted);
   border: 1px solid var(--line);
 }
 
 .meeting-title {
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 22px;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--text);
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
 
 .meeting-desc {
   font-size: 14px;
-  color: var(--text-2);
+  color: var(--ink-soft);
   line-height: 1.55;
 }
 
@@ -486,13 +511,14 @@ a:hover { color: var(--accent); }
   margin-top: auto;
 }
 .meeting-speaker {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
-  color: var(--text-2);
+  color: var(--ink-soft);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
   padding: 4px 10px;
   border-radius: var(--radius);
+  font-weight: 500;
 }
 
 .meeting-actions { margin-top: 4px; }
@@ -503,36 +529,37 @@ a:hover { color: var(--accent); }
   justify-content: center;
   gap: 8px;
   width: 100%;
-  background: var(--accent);
-  color: #0a0a0a;
+  background: var(--orange);
+  color: var(--white);
   border: none;
   padding: 12px 18px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   cursor: pointer;
   border-radius: var(--radius);
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-orange);
 }
-.btn-join:hover { background: var(--accent-2); color: #0a0a0a; }
+.btn-join:hover { background: var(--orange-hover); color: var(--white); }
 .btn-join svg { width: 14px; height: 14px; }
 
 .btn-join.disabled {
   background: rgba(255, 255, 255, 0.06);
-  color: var(--text-3);
+  color: var(--ink-muted);
   pointer-events: none;
   border: 1px solid var(--line);
+  box-shadow: none;
 }
 
 .empty-state {
   text-align: center;
   padding: 80px 24px;
-  color: var(--text-3);
+  color: var(--ink-muted);
   border: 1px dashed var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
 }
 
 .footer {
@@ -541,13 +568,13 @@ a:hover { color: var(--accent); }
   padding: 24px 48px;
   border-top: 1px solid var(--line);
   font-size: 12px;
-  color: var(--text-3);
+  color: var(--ink-muted);
   position: relative;
   z-index: 2;
   background: var(--bg);
 }
-.footer a { color: var(--text-3); }
-.footer a:hover { color: var(--accent); }
+.footer a { color: var(--ink-muted); }
+.footer a:hover { color: var(--orange); }
 
 @media (max-width: 900px) {
   .gate { grid-template-columns: 1fr; }
@@ -562,6 +589,8 @@ a:hover { color: var(--accent); }
 }
 
 @media (max-width: 480px) {
-  .gate-title { font-size: 44px; }
+  .gate-title { font-size: 2.2rem; }
   .meetings-grid { grid-template-columns: 1fr; }
+  .brand img { height: 34px; }
+  .topbar .brand img { height: 28px; }
 }
