@@ -53,28 +53,49 @@ After editing: commit, push, then on the VPS run `deploy-online`.
 
 ## Deploying
 
-This site deploys via a VPS-side script invoked from the Hostinger browser terminal — same shape as `deploy-engage` for the main site.
+From any shell on the VPS, as any user:
 
 ```bash
-# On the VPS, as user engagebyelevate-online:
 deploy-online
 ```
 
-That runs `scripts/deploy-online.sh`, which:
-1. `git pull`s the latest commit in `/home/engagebyelevate-online/online-engagebyelevate`
-2. `rsync`s `public/` into `/home/engagebyelevate-online/htdocs/online.engagebyelevate.com/`
-3. Normalises permissions (dirs 755, files 644)
+That's it. The wrapper at `/usr/local/bin/deploy-online`:
+
+1. Self-elevates to `engagebyelevate-online` if invoked as root (via `sudo -u`).
+2. `git pull`s the latest commit in `/home/engagebyelevate-online/online-engagebyelevate`.
+3. Hands off to the in-repo `scripts/deploy-online.sh`, which `rsync`s `public/` into `/home/engagebyelevate-online/htdocs/online.engagebyelevate.com/` and normalises permissions (dirs 755, files 644).
 
 No nginx reload needed — static files are read from disk on every request.
 
 ### One-time install on the VPS
 
+Clone the repo once into the site user's home, then paste this as root to install the wrapper at `/usr/local/bin/deploy-online`:
+
 ```bash
-cd /home/engagebyelevate-online
-git clone https://github.com/Frater12-byte/online-engagebyelevate.git
-chmod +x online-engagebyelevate/scripts/deploy-online.sh
-sudo ln -s /home/engagebyelevate-online/online-engagebyelevate/scripts/deploy-online.sh /usr/local/bin/deploy-online
+sudo -u engagebyelevate-online git clone https://github.com/Frater12-byte/online-engagebyelevate.git /home/engagebyelevate-online/online-engagebyelevate
+
+cat > /usr/local/bin/deploy-online <<'WRAPPER'
+#!/usr/bin/env bash
+set -euo pipefail
+SITE_USER="engagebyelevate-online"
+REPO="/home/engagebyelevate-online/online-engagebyelevate"
+
+if [ "$(id -un)" != "$SITE_USER" ]; then
+  if [ "$(id -u)" = "0" ]; then
+    exec sudo -u "$SITE_USER" -- "$0" "$@"
+  fi
+  echo "deploy-online must be run as $SITE_USER (you are $(id -un))." >&2
+  exit 1
+fi
+
+cd "$REPO"
+git pull
+exec "$REPO/scripts/deploy-online.sh"
+WRAPPER
+chmod +x /usr/local/bin/deploy-online
 ```
+
+After that one paste, `deploy-online` works from every shell forever.
 
 ## How it's wired (DNS / Nginx / SSL)
 
