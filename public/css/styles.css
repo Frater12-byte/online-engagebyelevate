@@ -637,6 +637,30 @@ h1, h2, h3 {
   .chat-status { padding: 8px 12px; }
 }
 
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+.notice strong { color: var(--ink); }
+.notice a { color: var(--orange); font-weight: 600; }
+.notice a:hover { text-decoration: underline; }
+.notice-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--orange);
+  margin-top: 1px;
+}
+.notice-icon svg { width: 18px; height: 18px; }
+
 .tz-row {
   display: flex;
   flex-wrap: wrap;
