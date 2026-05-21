@@ -5,6 +5,7 @@
   const STORAGE_KEY = 'engage_online_viewer';
   const TZ_STORAGE_KEY = 'agenda_tz';
   const SESSION_MAX_AGE_MS = 15 * 24 * 60 * 60 * 1000;
+  const EVENT_TZ = 'Asia/Dubai';
 
   const TZ_PRESETS = [
     { label: 'Dubai', tz: 'Asia/Dubai' },
@@ -13,6 +14,12 @@
     { label: 'London', tz: 'Europe/London' },
     { label: 'Paris', tz: 'Europe/Paris' }
   ];
+
+  const DAY_THEMES = {
+    '2026-06-02': 'United Arab Emirates',
+    '2026-06-03': 'United Arab Emirates',
+    '2026-06-04': 'Qatar, Maldives & Thailand'
+  };
 
   let viewer = null;
   try { viewer = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch (_) {}
@@ -23,8 +30,7 @@
     window.location.replace('/');
     return;
   }
-  const firstName = viewer.name.split(/\s+/)[0];
-  document.getElementById('viewerName').textContent = firstName;
+  document.getElementById('viewerName').textContent = viewer.name.split(/\s+/)[0];
 
   document.getElementById('signOut').addEventListener('click', function () {
     try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
@@ -35,7 +41,7 @@
   let allMeetings = [];
   let activeDay = 'all';
 
-  const grid = document.getElementById('meetingsGrid');
+  const list = document.getElementById('meetingsList');
   const emptyState = document.getElementById('emptyState');
   const tzSelector = document.getElementById('tzSelector');
 
@@ -62,7 +68,7 @@
     });
   });
 
-  grid.addEventListener('click', function (e) {
+  list.addEventListener('click', function (e) {
     const btn = e.target.closest('[data-ics-id]');
     if (!btn) return;
     e.preventDefault();
@@ -75,8 +81,8 @@
     const saved = localStorage.getItem(TZ_STORAGE_KEY);
     if (saved) return saved;
     try {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Dubai';
-    } catch (_) { return 'Asia/Dubai'; }
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || EVENT_TZ;
+    } catch (_) { return EVENT_TZ; }
   }
 
   function renderTzSelector() {
@@ -110,44 +116,73 @@
 
   function render() {
     const now = Date.now();
-    const filtered = allMeetings.filter(function (m) {
+    const visibleMeetings = allMeetings.filter(function (m) {
       if (activeDay === 'all') return true;
-      const dayStr = new Date(m.startsAt).toLocaleDateString('en-CA', { timeZone: 'Asia/Dubai' });
+      const dayStr = new Date(m.startsAt).toLocaleDateString('en-CA', { timeZone: EVENT_TZ });
       return dayStr === activeDay;
     });
 
-    if (filtered.length === 0) {
-      grid.innerHTML = '';
+    if (visibleMeetings.length === 0) {
+      list.innerHTML = '';
       emptyState.hidden = false;
       return;
     }
     emptyState.hidden = true;
 
-    grid.innerHTML = filtered.map(function (m) { return cardHtml(m, now); }).join('');
+    const byDay = groupByEventDay(visibleMeetings);
+    const days = Object.keys(byDay).sort();
+    const tzAbbr = tzShort(selectedTz);
+
+    list.innerHTML = days.map(function (day, idx) {
+      const sessions = byDay[day];
+      const dayNum = String(idx + 1).padStart(2, '0');
+      const dayDate = new Date(sessions[0].startsAt).toLocaleDateString('en-GB', {
+        timeZone: selectedTz, weekday: 'long', day: 'numeric', month: 'long'
+      });
+      const theme = DAY_THEMES[day] || '';
+
+      return (
+        '<div class="agenda-day">' +
+          '<div class="agenda-day-head">' +
+            '<div class="day-num">' + dayNum + '</div>' +
+            '<div class="day-date">' + escapeHtml(dayDate) + '</div>' +
+            (theme ? '<div class="day-theme">' + escapeHtml(theme) + '</div>' : '') +
+          '</div>' +
+          sessions.map(function (m) { return itemHtml(m, now, tzAbbr); }).join('') +
+        '</div>'
+      );
+    }).join('');
   }
 
-  function cardHtml(m, now) {
+  function groupByEventDay(meetings) {
+    const groups = {};
+    meetings.forEach(function (m) {
+      const day = new Date(m.startsAt).toLocaleDateString('en-CA', { timeZone: EVENT_TZ });
+      (groups[day] = groups[day] || []).push(m);
+    });
+    return groups;
+  }
+
+  function itemHtml(m, now, tzAbbr) {
     const start = new Date(m.startsAt).getTime();
     const end = new Date(m.endsAt || (start + 60 * 60 * 1000)).getTime();
     const earlyMs = 10 * 60 * 1000;
 
-    let status, statusLabel, joinable;
-    if (now >= end) { status = 'ended'; statusLabel = 'Ended'; joinable = false; }
-    else if (now >= start - earlyMs) {
-      status = 'live'; statusLabel = now >= start ? 'Live now' : 'Opens soon'; joinable = true;
+    let status, statusLabel, badgeClass, joinable;
+    if (now >= end) {
+      status = 'ended'; statusLabel = 'Ended'; badgeClass = 'badge'; joinable = false;
+    } else if (now >= start - earlyMs) {
+      status = 'live'; statusLabel = now >= start ? 'Live now' : 'Opens soon';
+      badgeClass = 'badge badge-live'; joinable = true;
+    } else {
+      status = 'upcoming'; statusLabel = 'Upcoming'; badgeClass = 'badge'; joinable = false;
     }
-    else { status = 'upcoming'; statusLabel = 'Upcoming'; joinable = false; }
 
-    const dayLabel = formatDay(m.startsAt);
-    const hourLabel = formatTime(m.startsAt) + (m.endsAt ? ' — ' + formatTime(m.endsAt) : '');
-    const tzAbbr = tzShort(selectedTz);
-
-    const speakers = (m.speakers || []).map(function (s) {
-      return '<span class="meeting-speaker">' + escapeHtml(s) + '</span>';
-    }).join('');
-
-    const safeTitle = escapeHtml(m.title || 'Session');
-    const safeDesc = m.description ? '<p class="meeting-desc">' + escapeHtml(m.description) + '</p>' : '';
+    const startStr = formatTime(m.startsAt);
+    const endStr = m.endsAt ? formatTime(m.endsAt) : '';
+    const orgs = (m.speakers || []).filter(Boolean);
+    const orgLine = orgs.length ? '<div class="session-org">' + escapeHtml(orgs.join(' · ')) + '</div>' : '';
+    const desc = m.description ? '<p class="session-desc">' + escapeHtml(m.description) + '</p>' : '';
 
     const joinBtn = joinable && m.joinUrl && !/REPLACE_ME/.test(m.joinUrl)
       ? '<a class="btn-join" href="' + escapeAttr(m.joinUrl) + '" target="_blank" rel="noopener">' +
@@ -158,40 +193,34 @@
 
     const calBlock = status === 'ended' ? '' : (
       '<div class="meeting-cal">' +
-        '<span class="meeting-cal-label">Save to calendar</span>' +
+        '<span class="meeting-cal-label">Save:</span>' +
         '<a class="meeting-cal-btn" href="' + escapeAttr(googleCalUrl(m)) + '" target="_blank" rel="noopener" title="Google Calendar" aria-label="Add to Google Calendar">' +
-          gcalSvg() +
+          '<img src="/img/icon-gcal.svg" alt="Google Calendar" width="18" height="18">' +
         '</a>' +
         '<a class="meeting-cal-btn" href="' + escapeAttr(outlookCalUrl(m)) + '" target="_blank" rel="noopener" title="Outlook" aria-label="Add to Outlook">' +
-          outlookSvg() +
+          '<img src="/img/icon-outlook.png" alt="Outlook" width="18" height="18">' +
         '</a>' +
         '<a class="meeting-cal-btn" href="#" data-ics-id="' + escapeAttr(m.id) + '" title="Download .ics" aria-label="Download .ics">' +
-          icsSvg() +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><path d="M5 19h14"/></svg>' +
         '</a>' +
       '</div>'
     );
 
     return (
-      '<article class="meeting-card ' + (status === 'live' ? 'is-live' : '') + '">' +
-        '<div class="meeting-time">' +
-          '<span class="meeting-day">' + dayLabel + '</span>' +
-          '<span class="meeting-hour">' + hourLabel + '</span>' +
-          '<span class="meeting-tz">' + escapeHtml(tzAbbr) + '</span>' +
-          '<span class="meeting-status ' + status + '">' + statusLabel + '</span>' +
+      '<div class="agenda-item">' +
+        '<div class="time">' +
+          startStr +
+          (endStr ? ' <span class="time-end">' + endStr + '</span>' : '') +
+          '<span class="time-tz">' + escapeHtml(tzAbbr) + '</span>' +
         '</div>' +
-        '<h3 class="meeting-title">' + safeTitle + '</h3>' +
-        safeDesc +
-        (speakers ? '<div class="meeting-speakers">' + speakers + '</div>' : '') +
-        '<div class="meeting-actions">' + joinBtn + '</div>' +
-        calBlock +
-      '</article>'
+        '<div class="agenda-body">' +
+          '<h4>' + escapeHtml(m.title || 'Session') + '</h4>' +
+          orgLine + desc +
+          '<div class="session-actions">' + joinBtn + calBlock + '</div>' +
+        '</div>' +
+        '<div class="agenda-item-side"><span class="' + badgeClass + '">' + escapeHtml(statusLabel) + '</span></div>' +
+      '</div>'
     );
-  }
-
-  function formatDay(iso) {
-    return new Date(iso).toLocaleDateString('en-GB', {
-      timeZone: selectedTz, weekday: 'short', day: '2-digit', month: 'short'
-    });
   }
 
   function formatTime(iso) {
@@ -202,9 +231,7 @@
 
   function tzShort(tz) {
     try {
-      const parts = new Intl.DateTimeFormat('en', {
-        timeZone: tz, timeZoneName: 'short'
-      }).formatToParts(new Date());
+      const parts = new Intl.DateTimeFormat('en', { timeZone: tz, timeZoneName: 'short' }).formatToParts(new Date());
       const tzn = parts.find(function (p) { return p.type === 'timeZoneName'; });
       if (tzn && tzn.value) return tzn.value;
     } catch (_) {}
@@ -253,11 +280,9 @@
       return String(s || '').replace(/[\\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, '\\n');
     };
     const ics = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
+      'BEGIN:VCALENDAR', 'VERSION:2.0',
       'PRODID:-//Engage by Elevate//Online Programme//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
+      'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
       'BEGIN:VEVENT',
       'UID:' + uid,
       'DTSTAMP:' + now,
@@ -268,22 +293,16 @@
         (m.description || '') +
         (m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? '\nJoin: ' + m.joinUrl : '')
       ),
-      'LOCATION:' + escapeIcs(
-        m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Dubai'
-      ),
+      'LOCATION:' + escapeIcs(m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Dubai'),
       'URL:https://online.engagebyelevate.com/programme',
-      'END:VEVENT',
-      'END:VCALENDAR'
+      'END:VEVENT', 'END:VCALENDAR'
     ].join('\r\n');
 
     const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = (m.id || 'session') + '.ics';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    a.href = url; a.download = (m.id || 'session') + '.ics';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
@@ -292,16 +311,6 @@
   }
   function addHour(iso) {
     return new Date(new Date(iso).getTime() + 60 * 60 * 1000).toISOString();
-  }
-
-  function gcalSvg() {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>';
-  }
-  function outlookSvg() {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="1.5"/><circle cx="10" cy="12" r="2.5"/><path d="M17 10l4-1v6l-4-1"/></svg>';
-  }
-  function icsSvg() {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M5 19h14"/></svg>';
   }
 
   function escapeHtml(s) {
