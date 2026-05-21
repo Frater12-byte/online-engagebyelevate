@@ -20,6 +20,7 @@
     '2026-06-03': 'United Arab Emirates',
     '2026-06-04': 'Qatar, Maldives & Thailand'
   };
+  const EVENT_DAYS = Object.keys(DAY_THEMES).sort();
 
   let viewer = null;
   try { viewer = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch (_) {}
@@ -135,7 +136,8 @@
 
     list.innerHTML = days.map(function (day, idx) {
       const sessions = byDay[day];
-      const dayNum = String(idx + 1).padStart(2, '0');
+      const absoluteIdx = EVENT_DAYS.indexOf(day);
+      const dayNum = String((absoluteIdx >= 0 ? absoluteIdx : idx) + 1).padStart(2, '0');
       const dayDate = new Date(sessions[0].startsAt).toLocaleDateString('en-GB', {
         timeZone: selectedTz, weekday: 'long', day: 'numeric', month: 'long'
       });
