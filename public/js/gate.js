@@ -4,7 +4,7 @@
 
   const STORAGE_KEY = 'engage_online_viewer';
   const SESSION_MAX_AGE_MS = 15 * 24 * 60 * 60 * 1000;
-  const SIGNUP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwFUogA2VL7P6EFtyBsI8arT2Qx64sVAXuSB4FQhE9Ao2KltF3yBv5FqQoBEucrZTVc/exec';
+  const SIGNUP_ENDPOINT = 'https://elevatedmc.app.n8n.cloud/webhook/engage-online-signup';
 
   try {
     const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
