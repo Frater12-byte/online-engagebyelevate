@@ -7,7 +7,7 @@
 
   try {
     const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-    if (existing && existing.email && existing.name && typeof existing.ts === 'number' &&
+    if (existing && existing.email && existing.name && existing.company && typeof existing.ts === 'number' &&
         (Date.now() - existing.ts) < SESSION_MAX_AGE_MS) {
       window.location.replace('/programme');
       return;
@@ -18,6 +18,20 @@
   const form = document.getElementById('gateForm');
   if (!form) return;
 
+  function setInvalid(fieldId, invalid) {
+    const f = document.getElementById(fieldId);
+    if (!f) return;
+    f.classList.toggle('is-invalid', !!invalid);
+  }
+
+  ['name', 'email', 'company'].forEach(function (id) {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('input', function () {
+      setInvalid('field-' + id, false);
+    });
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -25,25 +39,25 @@
     const email = form.email.value.trim().toLowerCase();
     const company = form.company.value.trim();
 
-    if (!name || name.length < 2) {
-      form.name.focus();
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      form.email.focus();
-      return;
-    }
+    const nameOk = name.length >= 2;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const companyOk = company.length >= 1;
 
-    const viewer = {
-      name,
-      email,
-      company: company || null,
-      ts: Date.now()
-    };
+    setInvalid('field-name', !nameOk);
+    setInvalid('field-email', !emailOk);
+    setInvalid('field-company', !companyOk);
 
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(viewer));
-    } catch (_) { /* ignore */ }
+    if (!nameOk) { form.name.focus(); return; }
+    if (!emailOk) { form.email.focus(); return; }
+    if (!companyOk) { form.company.focus(); return; }
+
+    const viewer = { name: name, email: email, company: company, ts: Date.now() };
+
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(viewer)); } catch (_) {}
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'online_signup', { method: 'gate_form' });
+    }
 
     window.location.assign('/programme');
   });

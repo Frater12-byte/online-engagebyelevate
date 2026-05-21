@@ -98,19 +98,22 @@
       <div class="gate-form-eyebrow">Access the live programme</div>
       <h2 class="gate-form-title">Sign in to watch.</h2>
 
-      <label class="field">
+      <label class="field" id="field-name">
         <span class="field-label">Full name</span>
         <input type="text" name="name" id="name" autocomplete="name" required>
+        <span class="field-error">Please enter your full name.</span>
       </label>
 
-      <label class="field">
+      <label class="field" id="field-email">
         <span class="field-label">Work email</span>
         <input type="email" name="email" id="email" autocomplete="email" required>
+        <span class="field-error">Please enter a valid work email address.</span>
       </label>
 
-      <label class="field">
-        <span class="field-label">Company <span class="field-opt">(optional)</span></span>
-        <input type="text" name="company" id="company" autocomplete="organization">
+      <label class="field" id="field-company">
+        <span class="field-label">Company</span>
+        <input type="text" name="company" id="company" autocomplete="organization" required>
+        <span class="field-error">Please enter your company name.</span>
       </label>
 
       <button type="submit" class="btn-primary">
@@ -131,20 +134,11 @@
   <span><a href="mailto:events@engagebyelevate.com">events@engagebyelevate.com</a></span>
 </footer>
 
-<script src="/js/gate.js"></script>
+<a class="chat-status" href="https://tawk.to/chat/69eb5d1ef851631c32b88e82/1jmvm7fv8" target="_blank" rel="noopener noreferrer" id="chat-status">
+  <span class="chat-status-dot"></span>
+  <span class="chat-status-text">Live Chat – Agents Online</span>
+</a>
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69eb5d1ef851631c32b88e82/1jmvm7fv8';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+<script src="/js/gate.js"></script>
 </body>
 </html>
