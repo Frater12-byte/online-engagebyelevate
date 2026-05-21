@@ -4,6 +4,7 @@
 
   const STORAGE_KEY = 'engage_online_viewer';
   const SESSION_MAX_AGE_MS = 15 * 24 * 60 * 60 * 1000;
+  const SIGNUP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwFUogA2VL7P6EFtyBsI8arT2Qx64sVAXuSB4FQhE9Ao2KltF3yBv5FqQoBEucrZTVc/exec';
 
   try {
     const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
@@ -55,10 +56,33 @@
 
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(viewer)); } catch (_) {}
 
+    sendSignup(viewer);
+
     if (typeof gtag === 'function') {
       gtag('event', 'online_signup', { method: 'gate_form' });
     }
 
     window.location.assign('/programme');
   });
+
+  function sendSignup(viewer) {
+    try {
+      const payload = JSON.stringify({
+        ts: new Date(viewer.ts).toISOString(),
+        name: viewer.name,
+        email: viewer.email,
+        company: viewer.company,
+        ua: navigator.userAgent || '',
+        ref: document.referrer || ''
+      });
+      const blob = new Blob([payload], { type: 'text/plain;charset=UTF-8' });
+      if (navigator.sendBeacon && navigator.sendBeacon(SIGNUP_ENDPOINT, blob)) return;
+      fetch(SIGNUP_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        body: blob
+      }).catch(function () { /* ignore */ });
+    } catch (_) { /* ignore */ }
+  }
 })();
