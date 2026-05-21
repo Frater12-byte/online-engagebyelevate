@@ -221,7 +221,7 @@
       '\n\nProgramme: https://online.engagebyelevate.com/programme'
     );
     const location = encodeURIComponent(
-      m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Elevate Tourism Hub, Dubai'
+      m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Dubai'
     );
     return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
       '&text=' + text + '&dates=' + start + '/' + end +
@@ -237,7 +237,7 @@
       (m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? 'Join: ' + m.joinUrl : '')
     );
     const location = encodeURIComponent(
-      m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Elevate Tourism Hub, Dubai'
+      m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Dubai'
     );
     return 'https://outlook.office.com/calendar/0/action/compose?subject=' + subject +
       '&startdt=' + encodeURIComponent(startIso) + '&enddt=' + encodeURIComponent(endIso) +
@@ -269,7 +269,7 @@
         (m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? '\nJoin: ' + m.joinUrl : '')
       ),
       'LOCATION:' + escapeIcs(
-        m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Elevate Tourism Hub, Dubai'
+        m.joinUrl && !/REPLACE_ME/.test(m.joinUrl) ? m.joinUrl : 'Dubai'
       ),
       'URL:https://online.engagebyelevate.com/programme',
       'END:VEVENT',

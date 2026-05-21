@@ -67,7 +67,7 @@
 
   function sendSignup(viewer) {
     try {
-      const payload = JSON.stringify({
+      const params = new URLSearchParams({
         ts: new Date(viewer.ts).toISOString(),
         name: viewer.name,
         email: viewer.email,
@@ -75,13 +75,15 @@
         ua: navigator.userAgent || '',
         ref: document.referrer || ''
       });
-      const blob = new Blob([payload], { type: 'text/plain;charset=UTF-8' });
+      const body = params.toString();
+      const blob = new Blob([body], { type: 'application/x-www-form-urlencoded;charset=UTF-8' });
       if (navigator.sendBeacon && navigator.sendBeacon(SIGNUP_ENDPOINT, blob)) return;
       fetch(SIGNUP_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
         keepalive: true,
-        body: blob
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: body
       }).catch(function () { /* ignore */ });
     } catch (_) { /* ignore */ }
   }

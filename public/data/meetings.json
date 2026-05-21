@@ -2,7 +2,7 @@
   {
     "id": "opening-session-day-1",
     "title": "Opening Session",
-    "description": "Welcome and opening of Engage by Elevate 2026 at the Elevate Tourism Hub.",
+    "description": "Welcome and opening of Engage by Elevate 2026.",
     "startsAt": "2026-06-02T11:00:00+04:00",
     "endsAt": "2026-06-02T11:40:00+04:00",
     "speakers": ["Engage by Elevate"],
@@ -65,7 +65,7 @@
   {
     "id": "closing-session-day-2",
     "title": "Closing Session + Networking Event",
-    "description": "Closing session followed by the networking event at the Elevate Tourism Hub.",
+    "description": "Closing session followed by the networking event.",
     "startsAt": "2026-06-03T19:00:00+04:00",
     "endsAt": "2026-06-03T20:00:00+04:00",
     "speakers": ["Engage by Elevate"],
