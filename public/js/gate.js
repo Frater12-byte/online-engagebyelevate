@@ -3,13 +3,16 @@
   'use strict';
 
   const STORAGE_KEY = 'engage_online_viewer';
+  const SESSION_MAX_AGE_MS = 15 * 24 * 60 * 60 * 1000;
 
   try {
     const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-    if (existing && existing.email && existing.name) {
+    if (existing && existing.email && existing.name && typeof existing.ts === 'number' &&
+        (Date.now() - existing.ts) < SESSION_MAX_AGE_MS) {
       window.location.replace('/programme');
       return;
     }
+    if (existing) localStorage.removeItem(STORAGE_KEY);
   } catch (_) { /* ignore */ }
 
   const form = document.getElementById('gateForm');

@@ -4,12 +4,16 @@
 
   const STORAGE_KEY = 'engage_online_viewer';
   const EVENT_TZ = 'Asia/Dubai';
+  const SESSION_MAX_AGE_MS = 15 * 24 * 60 * 60 * 1000;
 
   let viewer = null;
   try {
     viewer = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
   } catch (_) {}
-  if (!viewer || !viewer.email || !viewer.name) {
+  const expired = viewer && typeof viewer.ts === 'number' &&
+    (Date.now() - viewer.ts) >= SESSION_MAX_AGE_MS;
+  if (!viewer || !viewer.email || !viewer.name || expired) {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
     window.location.replace('/');
     return;
   }
