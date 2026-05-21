@@ -69,33 +69,15 @@ No nginx reload needed — static files are read from disk on every request.
 
 ### One-time install on the VPS
 
-Clone the repo once into the site user's home, then paste this as root to install the wrapper at `/usr/local/bin/deploy-online`:
+Clone the repo into the site user's home, then install the wrapper at `/usr/local/bin/deploy-online` by curling `scripts/wrapper.sh` directly from this repo:
 
 ```bash
 sudo -u engagebyelevate-online git clone https://github.com/Frater12-byte/online-engagebyelevate.git /home/engagebyelevate-online/online-engagebyelevate
 
-cat > /usr/local/bin/deploy-online <<'WRAPPER'
-#!/usr/bin/env bash
-set -euo pipefail
-SITE_USER="engagebyelevate-online"
-REPO="/home/engagebyelevate-online/online-engagebyelevate"
-
-if [ "$(id -un)" != "$SITE_USER" ]; then
-  if [ "$(id -u)" = "0" ]; then
-    exec sudo -u "$SITE_USER" -- "$0" "$@"
-  fi
-  echo "deploy-online must be run as $SITE_USER (you are $(id -un))." >&2
-  exit 1
-fi
-
-cd "$REPO"
-git pull
-exec "$REPO/scripts/deploy-online.sh"
-WRAPPER
-chmod +x /usr/local/bin/deploy-online
+curl -fsSL https://raw.githubusercontent.com/Frater12-byte/online-engagebyelevate/main/scripts/wrapper.sh -o /usr/local/bin/deploy-online && chmod +x /usr/local/bin/deploy-online
 ```
 
-After that one paste, `deploy-online` works from every shell forever.
+After that, `deploy-online` from any shell on the VPS — root or the site user — just works.
 
 ## How it's wired (DNS / Nginx / SSL)
 
