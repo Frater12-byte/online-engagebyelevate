@@ -344,11 +344,11 @@ h1, h2, h3 {
 .programme-eyebrow-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
+.programme-eyebrow-row .feedback-cta { margin-left: auto; }
 .programme-eyebrow {
   font-family: var(--font-body);
   font-weight: 500;
@@ -931,43 +931,6 @@ h1, h2, h3 {
   border-color: var(--orange);
   font-weight: 600;
 }
-
-.meeting-cal {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-.meeting-cal-label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--ink-muted);
-  margin-right: auto;
-}
-.meeting-cal-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.meeting-cal-btn:hover {
-  border-color: var(--orange);
-  color: var(--orange);
-  background: var(--orange-dim);
-}
-.meeting-cal-btn svg { width: 16px; height: 16px; }
 
 @media (max-width: 900px) {
   .gate { grid-template-columns: 1fr; }
