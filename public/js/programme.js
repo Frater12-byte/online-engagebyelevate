@@ -134,10 +134,8 @@
     const days = Object.keys(byDay).sort();
     const tzAbbr = tzShort(selectedTz);
 
-    list.innerHTML = days.map(function (day, idx) {
+    list.innerHTML = days.map(function (day) {
       const sessions = byDay[day];
-      const absoluteIdx = EVENT_DAYS.indexOf(day);
-      const dayNum = String((absoluteIdx >= 0 ? absoluteIdx : idx) + 1).padStart(2, '0');
       const dayDate = new Date(sessions[0].startsAt).toLocaleDateString('en-GB', {
         timeZone: selectedTz, weekday: 'long', day: 'numeric', month: 'long'
       });
@@ -146,7 +144,6 @@
       return (
         '<div class="agenda-day">' +
           '<div class="agenda-day-head">' +
-            '<div class="day-num">' + dayNum + '</div>' +
             '<div class="day-date">' + escapeHtml(dayDate) + '</div>' +
             (theme ? '<div class="day-theme">' + escapeHtml(theme) + '</div>' : '') +
           '</div>' +
@@ -170,20 +167,25 @@
     const end = new Date(m.endsAt || (start + 60 * 60 * 1000)).getTime();
     const earlyMs = 10 * 60 * 1000;
 
-    let status, statusLabel, badgeClass, joinable;
-    if (now >= end) {
-      status = 'ended'; statusLabel = 'Ended'; badgeClass = 'badge'; joinable = false;
-    } else if (now >= start - earlyMs) {
-      status = 'live'; statusLabel = now >= start ? 'Live now' : 'Opens soon';
-      badgeClass = 'badge badge-live'; joinable = true;
-    } else {
-      status = 'upcoming'; statusLabel = 'Upcoming'; badgeClass = 'badge'; joinable = false;
-    }
+    let status, joinable;
+    if (now >= end) { status = 'ended'; joinable = false; }
+    else if (now >= start - earlyMs) { status = 'live'; joinable = true; }
+    else { status = 'upcoming'; joinable = false; }
 
     const startStr = formatTime(m.startsAt);
     const endStr = m.endsAt ? formatTime(m.endsAt) : '';
+    const timeRange = endStr ? startStr + ' – ' + endStr : startStr;
+
+    const dayEyebrow = new Date(m.startsAt).toLocaleDateString('en-GB', {
+      timeZone: selectedTz, weekday: 'long', day: 'numeric', month: 'long'
+    }).toUpperCase();
+
+    const durationMin = Math.round((end - start) / 60000);
     const orgs = (m.speakers || []).filter(Boolean);
-    const orgLine = orgs.length ? '<div class="session-org">' + escapeHtml(orgs.join(' · ')) + '</div>' : '';
+    const metaParts = [];
+    if (orgs.length) metaParts.push(orgs.join(' · '));
+    if (durationMin > 0) metaParts.push(durationMin + ' min');
+    const metaLine = metaParts.length ? '<div class="session-meta">' + escapeHtml(metaParts.join(' · ')) + '</div>' : '';
     const desc = m.description ? '<p class="session-desc">' + escapeHtml(m.description) + '</p>' : '';
 
     const joinBtn = joinable && m.joinUrl && !/REPLACE_ME/.test(m.joinUrl)
@@ -191,37 +193,35 @@
         '<span>Join via Teams</span>' +
         '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M11 5l5 5-5 5"/></svg>' +
         '</a>'
-      : '<span class="btn-join disabled">' + (status === 'ended' ? 'Session ended' : 'Opens 10 min before') + '</span>';
+      : '';
 
     const calBlock = status === 'ended' ? '' : (
       '<div class="meeting-cal">' +
-        '<span class="meeting-cal-label">Save:</span>' +
-        '<a class="meeting-cal-btn" href="' + escapeAttr(googleCalUrl(m)) + '" target="_blank" rel="noopener" title="Google Calendar" aria-label="Add to Google Calendar">' +
-          '<img src="/img/icon-gcal.svg" alt="Google Calendar" width="18" height="18">' +
-        '</a>' +
+        '<span class="meeting-cal-label">Save invite</span>' +
         '<a class="meeting-cal-btn" href="' + escapeAttr(outlookCalUrl(m)) + '" target="_blank" rel="noopener" title="Outlook" aria-label="Add to Outlook">' +
-          '<img src="/img/icon-outlook.png" alt="Outlook" width="18" height="18">' +
+          '<img src="/img/icon-outlook.png" alt="Outlook" width="24" height="24">' +
         '</a>' +
-        '<a class="meeting-cal-btn" href="#" data-ics-id="' + escapeAttr(m.id) + '" title="Download .ics" aria-label="Download .ics">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><path d="M5 19h14"/></svg>' +
+        '<a class="meeting-cal-btn" href="' + escapeAttr(googleCalUrl(m)) + '" target="_blank" rel="noopener" title="Google Calendar" aria-label="Add to Google Calendar">' +
+          '<img src="/img/icon-gcal.svg" alt="Google Calendar" width="24" height="24">' +
         '</a>' +
       '</div>'
     );
 
+    const cls = 'agenda-item' + (status === 'live' ? ' is-live' : '') + (status === 'ended' ? ' is-ended' : '');
+
     return (
-      '<div class="agenda-item">' +
-        '<div class="time">' +
-          startStr +
-          (endStr ? ' <span class="time-end">' + endStr + '</span>' : '') +
-          '<span class="time-tz">' + escapeHtml(tzAbbr) + '</span>' +
-        '</div>' +
+      '<article class="' + cls + '">' +
         '<div class="agenda-body">' +
-          '<h4>' + escapeHtml(m.title || 'Session') + '</h4>' +
-          orgLine + desc +
-          '<div class="session-actions">' + joinBtn + calBlock + '</div>' +
+          '<div class="agenda-eyebrow">' + escapeHtml(dayEyebrow) + '</div>' +
+          '<div class="agenda-time">' + escapeHtml(timeRange) + '<span class="agenda-time-tz">' + escapeHtml(tzAbbr) + '</span></div>' +
+          '<h4 class="agenda-title">' + escapeHtml(m.title || 'Session') + '</h4>' +
+          metaLine + desc +
         '</div>' +
-        '<div class="agenda-item-side"><span class="' + badgeClass + '">' + escapeHtml(statusLabel) + '</span></div>' +
-      '</div>'
+        '<div class="agenda-side">' +
+          joinBtn +
+          calBlock +
+        '</div>' +
+      '</article>'
     );
   }
 
