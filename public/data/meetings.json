@@ -1,0 +1,29 @@
+[
+  {
+    "id": "opening-keynote",
+    "title": "Opening Keynote — Reimagining Hosted Buyer Events",
+    "description": "Welcome address and a look at how the hosted buyer model is evolving for Middle East inbound tourism.",
+    "startsAt": "2026-06-02T10:00:00+04:00",
+    "endsAt": "2026-06-02T10:45:00+04:00",
+    "speakers": ["Francesca Doe — Elevate World", "Guest Speaker TBC"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "panel-luxury-uae",
+    "title": "Panel · Luxury Hospitality in the UAE",
+    "description": "Leaders from UAE luxury hotels discuss the 2026 outlook, group travel demand and source-market shifts.",
+    "startsAt": "2026-06-02T14:00:00+04:00",
+    "endsAt": "2026-06-02T15:00:00+04:00",
+    "speakers": ["Hotel GM Panel"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "fireside-thailand",
+    "title": "Fireside · Thailand Inbound 2026",
+    "description": "Live conversation with leading Thai resort partners on the opportunity for GCC outbound buyers.",
+    "startsAt": "2026-06-04T11:00:00+04:00",
+    "endsAt": "2026-06-04T11:45:00+04:00",
+    "speakers": ["Thailand Hotel Partners"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  }
+]
