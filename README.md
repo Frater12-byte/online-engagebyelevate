@@ -1,16 +1,18 @@
-# Engage Online
+# Engage Online (for Hotels)
 
-Static sister-site to [engagebyelevate.com](https://engagebyelevate.com) — lets remote attendees access the live programme of **Engage by Elevate 2026** (Dubai, June 2–4) and join sessions via Microsoft Teams.
+Static sister-site to [engagebyelevate.com](https://engagebyelevate.com) — the **hotels'** online programme for **Engage by Elevate 2026** (Dubai, June 2–4). Lets hotels participating in the event follow keynotes, hotel showcases and tourism board sessions remotely and join via Microsoft Teams.
 
 Lives at **https://online.engagebyelevate.com**.
+
+> **Audience:** this site is dedicated to hotels. Agencies and tour operators have their own surfaces on the main app. The gate form's "Hotel name" field reflects this — the soft-gate copy and welcome email refer to "the hotels' online programme" throughout.
 
 Zero build step. Two HTML pages, one stylesheet, two scripts, one JSON file. Nginx serves `public/` as the document root.
 
 ## What it does
 
-- **Gate page** (`/`) — collects name + email + company, stores them in `localStorage`, redirects to `/programme`.
+- **Gate page** (`/`) — collects name + email + hotel name, stores them in `localStorage`, fires a signup webhook to n8n (which appends a Google Sheet row and sends a welcome email), then redirects to `/programme`.
 - **Programme page** (`/programme`) — lists all sessions from `data/meetings.json`, filters by day, shows live/upcoming/ended status, opens Teams join links 10 minutes before each session starts.
-- **No backend.** No accounts, no DB, no Node process. Anyone with the URL can sign in — the gate is a soft capture, not auth.
+- **No backend in this repo.** No accounts, no DB, no Node process. Anyone with the URL can sign in — the gate is a soft capture targeted at hotels, not hard auth.
 
 ## Local preview
 
