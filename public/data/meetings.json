@@ -1,119 +1,105 @@
 [
   {
-    "id": "opening-session-day-1",
-    "title": "Opening Session",
+    "id": "opening-day-1",
+    "title": "Opening Session at Elevate Tourism Hub",
     "description": "Welcome and opening of Engage by Elevate 2026.",
     "startsAt": "2026-06-02T11:00:00+04:00",
     "endsAt": "2026-06-02T11:40:00+04:00",
-    "speakers": ["Engage by Elevate"],
+    "speakers": [
+      "Samir Hamadeh — Founder & CEO, Elevate World",
+      "Stuart Dale — Chief Commercial Officer, Elevate World",
+      "Francesco Terragni — Chief Technology Officer, Elevate World"
+    ],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "wynn-al-marjan-island-presentation",
-    "title": "Wynn Al Marjan Island Presentation",
-    "description": "Sponsorship session: Wynn Al Marjan Island presents to tour operators.",
+    "id": "wynn-al-marjan-island",
+    "title": "Headline Sponsorship Session: Wynn Al Marjan Island",
+    "description": "Headline sponsorship session: Wynn Al Marjan Island.",
     "startsAt": "2026-06-02T13:20:00+04:00",
     "endsAt": "2026-06-02T14:00:00+04:00",
     "speakers": ["Wynn Al Marjan Island"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "panel-session-hotels-day-1",
-    "title": "Panel Session",
-    "description": "Panel session for hotels.",
+    "id": "coffee-corner-d1-afternoon",
+    "title": "Add-on Session: Coffee Corner",
+    "description": "Coffee Corner.",
+    "startsAt": "2026-06-02T14:30:00+04:00",
+    "endsAt": "2026-06-02T14:50:00+04:00",
+    "speakers": ["TBC"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "panel-virgin-atlantic-etc",
+    "title": "Panel Session: Virgin Atlantic Holidays, If Only / Elegant Resorts, Destinology, On The Beach",
+    "description": "Panel session.",
     "startsAt": "2026-06-02T15:20:00+04:00",
     "endsAt": "2026-06-02T16:20:00+04:00",
     "speakers": [],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "session-hotels-day-1",
-    "title": "Hotel Session",
-    "description": "Session for hotels.",
+    "id": "voyage-prive",
+    "title": "Session: Voyage Privé",
+    "description": "Session with Voyage Privé.",
     "startsAt": "2026-06-02T16:40:00+04:00",
     "endsAt": "2026-06-02T17:00:00+04:00",
-    "speakers": [],
+    "speakers": ["Charles Guilhamon — CEO, Voyage Privé"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "session-hotels-day-2-morning",
-    "title": "Hotel Session",
-    "description": "Session for hotels.",
+    "id": "coffee-corner-d1-evening",
+    "title": "Add-on Session: Coffee Corner",
+    "description": "Coffee Corner.",
+    "startsAt": "2026-06-02T18:00:00+04:00",
+    "endsAt": "2026-06-02T18:20:00+04:00",
+    "speakers": ["TBC"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "raktda",
+    "title": "Session: Ras Al Khaimah Tourism Development Authority (RAKTDA)",
+    "description": "Session with RAKTDA.",
     "startsAt": "2026-06-03T11:30:00+04:00",
     "endsAt": "2026-06-03T11:50:00+04:00",
-    "speakers": [],
+    "speakers": ["Carlo Kazan — Assistant Director, Destination Tourism Development, RAKTDA"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "tourism-board-presentation-day-2-am",
-    "title": "Tourism Board Presentation",
-    "description": "Sponsorship session: Tourism Board presents to tour operators.",
+    "id": "informa",
+    "title": "Session: Informa",
+    "description": "Session with Informa.",
     "startsAt": "2026-06-03T13:20:00+04:00",
     "endsAt": "2026-06-03T14:00:00+04:00",
-    "speakers": [],
+    "speakers": ["Wouter Molman — Chief Commercial Officer, India / Middle East / Türkiye & Africa, Informa Markets"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "tourism-board-presentation-day-2-pm",
-    "title": "Tourism Board Presentation",
-    "description": "Sponsorship session: Tourism Board presents to tour operators.",
+    "id": "miral",
+    "title": "Session: Miral (Yas Island Abu Dhabi)",
+    "description": "Session with Miral (Yas Island Abu Dhabi).",
     "startsAt": "2026-06-03T15:20:00+04:00",
     "endsAt": "2026-06-03T15:40:00+04:00",
-    "speakers": [],
+    "speakers": ["Miral"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   },
   {
-    "id": "closing-session-day-2",
-    "title": "Closing Session + Networking Event",
-    "description": "Closing session followed by the networking event.",
+    "id": "coffee-corner-d2",
+    "title": "Add-on Session: Coffee Corner",
+    "description": "Coffee Corner.",
+    "startsAt": "2026-06-03T17:00:00+04:00",
+    "endsAt": "2026-06-03T17:20:00+04:00",
+    "speakers": ["TBC"],
+    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
+  },
+  {
+    "id": "closing-day-2",
+    "title": "Closing Session at Elevate Tourism Hub",
+    "description": "Closing session at Elevate Tourism Hub.",
     "startsAt": "2026-06-03T19:00:00+04:00",
     "endsAt": "2026-06-03T20:00:00+04:00",
-    "speakers": ["Engage by Elevate"],
-    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
-  },
-  {
-    "id": "opening-session-day-3",
-    "title": "Opening Session — International Day",
-    "description": "Opening session for the international day.",
-    "startsAt": "2026-06-04T11:00:00+04:00",
-    "endsAt": "2026-06-04T11:40:00+04:00",
-    "speakers": ["Engage by Elevate"],
-    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
-  },
-  {
-    "id": "thailand-session",
-    "title": "Thailand Session",
-    "description": "Thailand session for hotels.",
-    "startsAt": "2026-06-04T13:20:00+04:00",
-    "endsAt": "2026-06-04T14:00:00+04:00",
-    "speakers": [],
-    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
-  },
-  {
-    "id": "maldives-session",
-    "title": "Maldives Session",
-    "description": "Maldives session for hotels.",
-    "startsAt": "2026-06-04T15:20:00+04:00",
-    "endsAt": "2026-06-04T16:20:00+04:00",
-    "speakers": [],
-    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
-  },
-  {
-    "id": "visit-qatar-presentation",
-    "title": "Tourism Board Presentation — Visit Qatar",
-    "description": "Visit Qatar presents to tour operators.",
-    "startsAt": "2026-06-04T16:40:00+04:00",
-    "endsAt": "2026-06-04T17:00:00+04:00",
-    "speakers": ["Visit Qatar"],
-    "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
-  },
-  {
-    "id": "closing-session-day-3",
-    "title": "Closing Session",
-    "description": "Final closing session of Engage by Elevate 2026.",
-    "startsAt": "2026-06-04T19:00:00+04:00",
-    "endsAt": "2026-06-04T19:30:00+04:00",
-    "speakers": ["Engage by Elevate"],
+    "speakers": ["Samir Hamadeh — Founder & CEO, Elevate World"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/REPLACE_ME"
   }
 ]

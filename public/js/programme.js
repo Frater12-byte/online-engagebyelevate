@@ -17,8 +17,7 @@
 
   const DAY_THEMES = {
     '2026-06-02': 'United Arab Emirates',
-    '2026-06-03': 'United Arab Emirates',
-    '2026-06-04': 'Qatar, Maldives & Thailand'
+    '2026-06-03': 'United Arab Emirates'
   };
   const EVENT_DAYS = Object.keys(DAY_THEMES).sort();
 
