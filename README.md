@@ -1,6 +1,6 @@
 # Engage Online (for Hotels)
 
-Static sister-site to [engagebyelevate.com](https://engagebyelevate.com) — the **hotels'** online programme for **Engage by Elevate 2026** (Dubai, June 2–4). Lets hotels participating in the event follow keynotes, hotel showcases and tourism board sessions remotely and join via Microsoft Teams.
+Static sister-site to [engagebyelevate.com](https://engagebyelevate.com) — the **hotels'** online programme for **Engage by Elevate 2026**. Two days of live online content for hotels (Dubai, June 2–3); the in-person event runs 2–4 June. Lets hotels participating in the event follow keynotes, hotel showcases and tourism board sessions remotely and join via Microsoft Teams.
 
 Lives at **https://online.engagebyelevate.com**.
 
