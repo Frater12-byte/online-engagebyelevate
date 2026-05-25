@@ -187,7 +187,7 @@
     const metaLine = metaParts.length ? '<div class="session-meta">' + escapeHtml(metaParts.join(' · ')) + '</div>' : '';
     const desc = m.description ? '<p class="session-desc">' + escapeHtml(m.description) + '</p>' : '';
 
-    const joinBtn = joinable && m.joinUrl && !/REPLACE_ME/.test(m.joinUrl)
+    const joinBtn = status !== 'ended' && m.joinUrl && !/REPLACE_ME/.test(m.joinUrl)
       ? '<a class="btn-join" href="' + escapeAttr(m.joinUrl) + '" target="_blank" rel="noopener">' +
         '<span>Join via Teams</span>' +
         '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M11 5l5 5-5 5"/></svg>' +
