@@ -43,8 +43,8 @@
     "id": "voyage-prive",
     "title": "Session: Voyage Privé",
     "description": "Session with Voyage Privé.",
-    "startsAt": "2026-06-02T16:40:00+04:00",
-    "endsAt": "2026-06-02T17:00:00+04:00",
+    "startsAt": "2026-06-02T17:40:00+04:00",
+    "endsAt": "2026-06-02T18:00:00+04:00",
     "speakers": ["Charles Guilhamon — CEO, Voyage Privé"],
     "joinUrl": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODYwOWExMmItYmZkOS00YzM3LWE5MTktZTNhY2U2MzIzNGZm%40thread.v2/0?context=%7b%22Tid%22%3a%22a936c0f6-55c3-4ab4-9e1b-fc698449cd78%22%2c%22Oid%22%3a%22a5a924ae-5b42-4b87-97b9-8489a6811321%22%7d"
   },
